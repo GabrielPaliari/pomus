@@ -4,19 +4,26 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "tsc:w": "tsc --watch"
   },
   "dependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/react": "^16.1.0",
+    "@types/react-native": "^0.52.22",
     "react": "16.3.0-alpha.1",
-    "react-native": "0.54.2"
+    "react-native": "0.54.2",
+    "typescript": "^2.8.1"
   },
   "devDependencies": {
     "babel-jest": "22.4.3",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.4.3",
-    "react-test-renderer": "16.3.0-alpha.1"
+    "react-test-renderer": "16.3.0-alpha.1",
+    "tslint": "^5.9.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "testRegex": "compiled/__tests__/.*"
   }
 }
