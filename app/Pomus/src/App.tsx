@@ -7,10 +7,24 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends React.Component<{}, {}> {
+interface AppState {
+  textFromServer: any;
+}
+
+export default class App extends React.Component<{}, AppState> {
+  componentDidMount() {
+    // fetch('http://18.231.181.253:8080/notes/1')
+    // .then(response => response.json())
+    // .then(responseJson => {
+    //   console.log(responseJson);
+    //   this.setState({textFromServer: responseJson[0].firstname});
+    // })
+    // .catch(error => console.log(error));
+  }
   render() {
     return (
       <View style={styles.container}>
+        <Text>mudei</Text>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit wait a second</Text>
         <Text style={styles.instructions}>{instructions}</Text>

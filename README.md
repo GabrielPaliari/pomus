@@ -2,7 +2,7 @@
 /* TODO describe project */
 
 ## Structure
-This project is divided in three folders: app, server and database, each one with it's own readme and description
+This project is divided in three folders: [app](/app/README.md), server and database, each one with it's own readme and description
 
 ## Setup
 Start by cloning this repository with
