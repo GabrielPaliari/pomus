@@ -46,6 +46,6 @@ I recommend using [VisualStudio Code](https://code.visualstudio.com/) and using 
 ## Libraries used
 
 - Typescript
-- (To add) React-Navigation
-- (To add) Styled-Components
+- React-Navigation
+- Styled-Components
 - (To add) Google maps api
