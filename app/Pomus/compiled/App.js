@@ -6,7 +6,18 @@ const instructions = Platform.select({
         'Shake or press menu button for dev menu',
 });
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { textFromServer: '' };
+    }
     componentDidMount() {
+        // tslint:disable-next-line:max-line-length
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=Escola+Politecnica+de+Sao+Paulo,+Sao+Paulo,+BR&key=AIzaSyDml2wp33KfRdp7_TmEFGnjr2CIb8ATXP4')
+            .then(response => response.json())
+            .then(responseJson => {
+            this.setState({ textFromServer: JSON.stringify(responseJson.results[0].geometry.location) });
+            console.warn(responseJson);
+        });
         // fetch('http://18.231.181.253:8080/notes/1')
         // .then(response => response.json())
         // .then(responseJson => {
@@ -17,7 +28,7 @@ export default class App extends React.Component {
     }
     render() {
         return (<View style={styles.container}>
-        <Text>mudei</Text>
+        <Text>{this.state.textFromServer}</Text>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit wait a second</Text>
         <Text style={styles.instructions}>{instructions}</Text>

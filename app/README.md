@@ -48,4 +48,4 @@ I recommend using [VisualStudio Code](https://code.visualstudio.com/) and using 
 - Typescript
 - React-Navigation
 - Styled-Components
-- (To add) Google maps api
+- Google maps api
