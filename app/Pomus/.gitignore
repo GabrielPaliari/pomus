@@ -48,6 +48,12 @@ buck-out/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/
 
+#compiled
+compiled/
+
+# secrets
+src/secrets.ts
+
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
