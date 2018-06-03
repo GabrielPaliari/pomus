@@ -22,7 +22,7 @@ module.exports =
       if (err) {  
         reject(err); 
       } else {
-        console.log("Dados Recuperados da Base")  
+        console.log("Dados Professor Recuperados da Base")  
         console.log(result)
         resolve(result);
       }
