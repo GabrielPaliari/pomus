@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { addressToPosition, getLocation } from './location';
+import { Button, Picker, Platform, StyleSheet, Text, TextInput, View } from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { getLocation } from './location';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -11,18 +12,29 @@ const instructions = Platform.select({
 interface AppState {
   textFromServer: any;
   localPosition: any;
+  subjectId: string;
+  maxDistance: string;
+  maxPrice: string;
+  useCurrentDistance: boolean;
 }
 
 export default class App extends React.Component<{}, AppState> {
   constructor(props) {
     super(props);
-    this.state = {textFromServer: 'calma', localPosition: ''};
+    this.state = {
+      textFromServer: 'calma',
+      localPosition: '',
+      subjectId: '1',
+      maxDistance: '',
+      maxPrice: '',
+      useCurrentDistance: false,
+      };
   }
   componentDidMount() {
     // tslint:disable-next-line:max-line-length
     // addressToPosition('Escola+Politecnica+de+Sao+Paulo,+Sao+Paulo,+BR').then(position => this.setState({textFromServer: JSON.stringify(position)}));
     // tslint:disable-next-line:max-line-length
-    // getLocation().then(position => this.setState({localPosition: JSON.stringify(position)}));
+    getLocation().then(position => this.setState({localPosition: JSON.stringify(position)}));
     // fetch('http://18.231.181.253:8080/notes/1')
     // .then(response => response.json())
     // .then(responseJson => {
@@ -31,7 +43,50 @@ export default class App extends React.Component<{}, AppState> {
     // })
     // .catch(error => console.log(error));
 
-    fetch('http://localhost:8080/match', {
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Picker
+          selectedValue={this.state.subjectId}
+          style={{ height: 50, width: 200 }}
+          onValueChange={(itemValue, itemIndex) => this.setState({subjectId: itemValue})}>
+          <Picker.Item label='Matematica' value={'1'} />
+          <Picker.Item label='Física' value={'2'} />
+          <Picker.Item label='Português' value={'3'} />
+          <Picker.Item label='Química' value={'4'} />
+        </Picker>
+        <Text>Distancia máxima</Text>
+        <TextInput
+          style={{height: 50, width: 200}}
+          placeholder={'Distacia maxima'}
+          value={this.state.maxDistance}
+          onChangeText={text => this.setState({maxDistance: text})}
+        />
+        <Text>Preço máximo</Text>
+        <TextInput
+          style={{height: 50, width: 200}}
+          placeholder={'Preço maximo'}
+          value={this.state.maxPrice}
+          onChangeText={text => this.setState({maxPrice: text})}
+        />
+        <CheckBox
+          title={'Usar distância atual'}
+          onPress={() => this.setState({useCurrentDistance: !this.state.useCurrentDistance})}
+          checked={this.state.useCurrentDistance}
+        />
+        <Button
+          onPress={this.searchTeachers}
+          title={'Procurar professores'}
+        />
+        <Text>Text from server: {this.state.textFromServer}</Text>
+        <Text>Local position: {this.state.localPosition}</Text>
+      </View>
+    );
+  }
+
+  searchTeachers = () => {
+    fetch('http://192.168.1.95:8080/match', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -39,26 +94,20 @@ export default class App extends React.Component<{}, AppState> {
       },
       body: JSON.stringify({
         studentId: '7',
+        // latitude: -23.5461,
         latitude: null,
-        longitute: null,
-        subjectId: '1',
-        MaxDistance: '50',
-        MaxPrice: '75',
+        // longitude: -46.7576,
+        longitude: null,
+        subjectId: this.state.subjectId,
+        MaxDistance: this.state.maxDistance,
+        MaxPrice: this.state.maxPrice,
       }),
     }).then(response => response.json())
     .then(responseJson => {
       console.log(responseJson);
       this.setState({textFromServer: JSON.stringify(responseJson)});
     });
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text></Text>
-        <Text>Text from server: {this.state.textFromServer}</Text>
-        <Text>Local position: {this.state.localPosition}</Text>
-      </View>
-    );
+
   }
 }
 const styles = StyleSheet.create({
