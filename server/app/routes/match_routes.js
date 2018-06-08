@@ -4,6 +4,8 @@ const studentService = require("../../services/student_service");
 
 function distance(Student,Professor){
   const R = 6371; // Mean earth radius 
+  // console.log(Student.Latitude);
+  // console.log(Student);
   let a = Math.pow(Math.sin((Student.Latitude - Professor.Latitude)/2),2) + Math.cos(Student.Latitude) * Math.cos(Professor.Latitude) * Math.pow(Math.sin((Student.Longitude - Professor.Longitude)/2),2);
   let c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
   let d = R * c;
@@ -16,7 +18,22 @@ module.exports = function(app, db) {
     console.log(req.body);
 
     let promiseProfessor = matchService(db, req.body.subjectId)
-    let promiseStudent = studentService(db,req.body.studentId)
+    let promiseStudent
+    if (req.body.latitude == null && req.body.longitude == null) {
+      promiseStudent = studentService(db,req.body.studentId);
+    }
+    else {
+      // promiseStudent = "[ RowDataPacket {\n\r"
+      //   +"UserId: "+ req.body.studentId+",\n\r"
+      //   +"Latitude: "+ req.body.latitude+",\n\r"
+      //   +"Longitude: "+ req.body.longitude +"} ]";
+        promiseStudent = [ {
+          UserId: req.body.studentId,
+          Latitude: req.body.latitude,
+          Longitude: req.body.longitude}];
+      console.log(promiseStudent);
+    }
+      
 
     Promise.all([promiseStudent,promiseProfessor]).then(
       function(result){
@@ -24,9 +41,10 @@ module.exports = function(app, db) {
         console.log(result);
 
         console.log("\n\rAluno:")
-        //console.log(result[0]);
+        console.log(result[0]);
         //console.log(JSON.stringify(result[0]));
         let Aluno = JSON.parse(JSON.stringify(result[0]));
+        console.log(Aluno);
         console.log(Aluno[0]);
 
         

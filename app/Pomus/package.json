@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "tsc:w": "tsc --watch",
-    "start:android": "react-native run-android && yarn tsc:w"
+    "start:android": "react-native run-android && npm run tsc:w"
   },
   "dependencies": {
     "@types/jest": "22.2.2",
