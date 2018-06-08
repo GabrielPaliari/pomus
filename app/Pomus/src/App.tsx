@@ -16,13 +16,13 @@ interface AppState {
 export default class App extends React.Component<{}, AppState> {
   constructor(props) {
     super(props);
-    this.state = {textFromServer: '', localPosition: ''};
+    this.state = {textFromServer: 'calma', localPosition: ''};
   }
   componentDidMount() {
     // tslint:disable-next-line:max-line-length
-    addressToPosition('Escola+Politecnica+de+Sao+Paulo,+Sao+Paulo,+BR').then(position => this.setState({textFromServer: JSON.stringify(position)}));
+    // addressToPosition('Escola+Politecnica+de+Sao+Paulo,+Sao+Paulo,+BR').then(position => this.setState({textFromServer: JSON.stringify(position)}));
     // tslint:disable-next-line:max-line-length
-    getLocation().then(position => this.setState({localPosition: JSON.stringify(position)}));
+    // getLocation().then(position => this.setState({localPosition: JSON.stringify(position)}));
     // fetch('http://18.231.181.253:8080/notes/1')
     // .then(response => response.json())
     // .then(responseJson => {
@@ -45,13 +45,17 @@ export default class App extends React.Component<{}, AppState> {
         MaxDistance: '50',
         MaxPrice: '75',
       }),
+    }).then(response => response.json())
+    .then(responseJson => {
+      console.log(responseJson);
+      this.setState({textFromServer: responseJson[0].firstname});
     });
   }
   render() {
     return (
       <View style={styles.container}>
         <Text></Text>
-        <Text>Position from address: {this.state.textFromServer}</Text>
+        <Text>Text from server: {this.state.textFromServer}</Text>
         <Text>Local position: {this.state.localPosition}</Text>
       </View>
     );
