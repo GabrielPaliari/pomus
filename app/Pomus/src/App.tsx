@@ -30,6 +30,22 @@ export default class App extends React.Component<{}, AppState> {
     //   this.setState({textFromServer: responseJson[0].firstname});
     // })
     // .catch(error => console.log(error));
+
+    fetch('http://localhost:8080/match', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        studentId: '7',
+        latitude: null,
+        longitute: null,
+        subjectId: '1',
+        MaxDistance: '50',
+        MaxPrice: '75',
+      }),
+    });
   }
   render() {
     return (
