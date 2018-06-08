@@ -48,7 +48,7 @@ export default class App extends React.Component<{}, AppState> {
     }).then(response => response.json())
     .then(responseJson => {
       console.log(responseJson);
-      this.setState({textFromServer: responseJson[0].firstname});
+      this.setState({textFromServer: JSON.stringify(responseJson[0])});
     });
   }
   render() {
