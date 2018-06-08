@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import { addressToPosition, getLocation } from './location';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -9,21 +10,19 @@ const instructions = Platform.select({
 
 interface AppState {
   textFromServer: any;
+  localPosition: any;
 }
 
 export default class App extends React.Component<{}, AppState> {
   constructor(props) {
     super(props);
-    this.state = {textFromServer: ''};
+    this.state = {textFromServer: '', localPosition: ''};
   }
   componentDidMount() {
     // tslint:disable-next-line:max-line-length
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=Escola+Politecnica+de+Sao+Paulo,+Sao+Paulo,+BR&key=MyAppKey')
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState({textFromServer: JSON.stringify(responseJson.results[0].geometry.location)});
-        console.warn(responseJson);
-      });
+    addressToPosition('Escola+Politecnica+de+Sao+Paulo,+Sao+Paulo,+BR').then(position => this.setState({textFromServer: JSON.stringify(position)}));
+    // tslint:disable-next-line:max-line-length
+    getLocation().then(position => this.setState({localPosition: JSON.stringify(position)}));
     // fetch('http://18.231.181.253:8080/notes/1')
     // .then(response => response.json())
     // .then(responseJson => {
@@ -35,10 +34,9 @@ export default class App extends React.Component<{}, AppState> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.textFromServer}</Text>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit wait a second</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text></Text>
+        <Text>Position from address: {this.state.textFromServer}</Text>
+        <Text>Local position: {this.state.localPosition}</Text>
       </View>
     );
   }
