@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "@types/jest": "22.2.2",
+    "@types/react": "16.1.0",
+    "@types/react-native": "0.52.22",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "tsc:w": "tsc --watch",
     "start:android": "react-native run-android && npm run tsc:w"
   },
   "dependencies": {
-    "@types/jest": "22.2.2",
-    "@types/react": "16.1.0",
-    "@types/react-native": "0.52.22",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.2",
     "react-native-elements": "0.19.1",

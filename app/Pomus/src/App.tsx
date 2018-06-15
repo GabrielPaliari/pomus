@@ -22,7 +22,7 @@ export default class App extends React.Component<{}, AppState> {
   constructor(props) {
     super(props);
     this.state = {
-      textFromServer: 'calma',
+      textFromServer: undefined,
       localPosition: '',
       subjectId: '1',
       maxDistance: '',
@@ -79,7 +79,7 @@ export default class App extends React.Component<{}, AppState> {
           onPress={this.searchTeachers}
           title={'Procurar professores'}
         />
-        <Text>Text from server: {this.state.textFromServer}</Text>
+        {this.state.textFromServer ? <Text>Text from server: {JSON.stringify(this.state.textFromServer.req[0])}</Text> : null}
         <Text>Local position: {this.state.localPosition}</Text>
       </View>
     );
@@ -93,7 +93,7 @@ export default class App extends React.Component<{}, AppState> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        studentId: '7',
+        studentId: '3',
         // latitude: -23.5461,
         latitude: null,
         // longitude: -46.7576,
@@ -105,7 +105,7 @@ export default class App extends React.Component<{}, AppState> {
     }).then(response => response.json())
     .then(responseJson => {
       console.log(responseJson);
-      this.setState({textFromServer: JSON.stringify(responseJson)});
+      this.setState({textFromServer: responseJson});
     });
 
   }
