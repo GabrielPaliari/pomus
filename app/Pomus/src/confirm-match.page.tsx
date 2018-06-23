@@ -20,18 +20,18 @@ export class ConfirmMatchScreen extends React.Component <any, ConfirmMatchScreen
     };
   }
 
-  state = {distance: '', longitude: 10, latitude: 10};
+  state = {distance: '' + this.props.navigation.getParam('Distance', '10'), longitude: 10, latitude: 10};
 
   render() {
     return(
       <View style={{flex: 1, backgroundColor: '#fffff5', alignItems: 'center', justifyContent: 'center'}}>
-       {Number(this.state.distance ? this.state.distance : 10) > 1 || !this.props.navigation.getParam('isStudent', false) ?
+       {Number(this.state.distance) > 1 || !this.props.navigation.getParam('isStudent', 0) ?
         <React.Fragment>
           <View style={{paddingBottom: 20}}>
             <Text style={{fontSize: 16}}>
               {'Você está a ' +
                 this.state.distance +
-                'km do' + ` ${this.props.navigation.getParam('isStudent', false) ? 'professor' : 'aluno'} `
+                'km do' + ` ${this.props.navigation.getParam('isStudent', 0) ? 'professor' : 'aluno'} `
                 + this.props.navigation.getParam('UserName', '')
               }
             </Text>
@@ -77,8 +77,7 @@ export class ConfirmMatchScreen extends React.Component <any, ConfirmMatchScreen
       longitude: position.coords.longitude,
       },
       () => {
-        console.warn(this.state.latitude);
-        fetch('http://192.168.1.95:8080/event', {
+        fetch('http://192.168.0.10:8080/event', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -86,14 +85,14 @@ export class ConfirmMatchScreen extends React.Component <any, ConfirmMatchScreen
           },
           body: JSON.stringify({
             eventId: '1',
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            isStudent: this.props.navigation.getParam('isStudent', false),
+            Latitude: this.state.latitude,
+            Longitude: this.state.longitude,
+            isStudent: this.props.navigation.getParam('isStudent', 0),
           }),
         }).then(response => response.json())
         .then(responseJson => {
-          console.warn(responseJson);
-          this.setState({distance: responseJson});
+          console.log(responseJson);
+          this.setState({distance: responseJson.req});
         });
     }));
   }

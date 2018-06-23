@@ -103,12 +103,12 @@ export class MatchScreen extends React.Component <any, MatchScreenState> {
     );
   }
 
-  handleTap = (UserName: string, UserId: number) => {
-    this.props.navigation.navigate('ConfirmMatch', {UserName, UserId, isStudent: true});
+  handleTap = (UserName: string, UserId: number, Distance: number) => {
+    this.props.navigation.navigate('ConfirmMatch', {UserName, UserId, isStudent: 1, Distance});
   }
 
   searchTeachers = () => {
-    fetch('http://192.168.1.95:8080/match', {
+    fetch('http://192.168.0.10:8080/match', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -125,7 +125,7 @@ export class MatchScreen extends React.Component <any, MatchScreenState> {
     }).then(response => response.json())
     .then(responseJson => {
       console.log(responseJson);
-      this.setState({professorList: responseJson});
+      this.setState({professorList: responseJson.req});
     });
 
   }

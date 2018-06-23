@@ -5,11 +5,11 @@ import styled from 'styled-components/native';
 import { Professor } from './match.page';
 
 interface ProfessorCellProps extends Professor {
-  onTap: (UserName: string, UserId: number) => void;
+  onTap: (UserName: string, UserId: number, Distance: number) => void;
 }
 
 export function ProfessorCell(props: ProfessorCellProps) {
-  const handleTap = () => props.onTap(props.UserName, props.UserId);
+  const handleTap = () => props.onTap(props.UserName, props.UserId, props.Distance);
   return(
     <View
       style={{flex: 1, padding: 20, backgroundColor: 'white', flexDirection: 'row', alignItems: 'center'}}
