@@ -25,7 +25,8 @@ export class ConfirmMatchScreen extends React.Component <any, ConfirmMatchScreen
   render() {
     return(
       <View style={{flex: 1, backgroundColor: '#fffff5', alignItems: 'center', justifyContent: 'center'}}>
-       {Number(this.state.distance) > 1 || !this.props.navigation.getParam('isStudent', 0) ?
+       {Number(this.state.distance) !== -1 ?
+         Number(this.state.distance) > 1 || !this.props.navigation.getParam('isStudent', 0) ?
         <React.Fragment>
           <View style={{paddingBottom: 20}}>
             <Text style={{fontSize: 16}}>
@@ -65,6 +66,10 @@ export class ConfirmMatchScreen extends React.Component <any, ConfirmMatchScreen
             </Text>
           </TouchableOpacity>
         </React.Fragment>
+        :
+        <Text style={{fontSize: 16, paddingBottom: 20}}>
+          Aguardando resposta do {`${this.props.navigation.getParam('isStudent', 0) ? 'professor' : 'aluno'}`}
+        </Text>
       }
       </View>
     );
