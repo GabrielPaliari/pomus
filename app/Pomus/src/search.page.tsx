@@ -25,7 +25,7 @@ export class SearchScreen extends React.Component<any, SearchState> {
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00ebfa', borderWidth: 30, borderColor: '#00ebfa'}}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start', backgroundColor: '#fffff5', borderRadius: 30, borderStyle: 'solid', borderColor: '#fffff5', elevation: 3}}>
         <View style={{paddingTop: 30, paddingBottom: 70}}>
-          <Text style={{fontSize: 30, fontWeight: 'bold', textAlign: 'center', color: '#008bac'}}>Procurar por professor</Text>
+          <Text style={{fontSize: 30, fontWeight: 'bold', textAlign: 'center', color: '#008bac', paddingHorizontal: 30}}>Procurar por professor</Text>
         </View>
         <View style={{paddingBottom: 30}}>
           <Text style={{paddingBottom: 8}}>Selecione a matéria</Text>
