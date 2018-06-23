@@ -396,13 +396,32 @@
   version "22.2.2"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.2.tgz#afe5dacbd00d65325f52da0ed3e76e259629ac9d"
 
+"@types/react-native@*":
+  version "0.55.22"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.55.22.tgz#14193cc3b2e362e0408a54900855c0111c600caa"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-native@0.52.22":
   version "0.52.22"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.52.22.tgz#98abf412c826a781d448346dffe5c89fce17ef28"
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.1.0":
+"@types/react-navigation@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@types/react-navigation/-/react-navigation-2.0.6.tgz#16ef87a163aebb7e6d2b5223f2c1f692a9f03726"
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react@*":
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.1.tgz#c53bbfb4a78933db587da085ac60dbf5fcf73f8f"
+  dependencies:
+    csstype "^2.2.0"
+
+"@types/react@16.1.0":
   version "16.1.0"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.1.0.tgz#6c0e9955ce73f332b4a1948d45decaf18c764c6e"
 
@@ -1717,6 +1736,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.2.37.tgz#541097234cb2513c83ceed3acddc27ff27987d54"
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.5.tgz#4125484a3d42189a863943f23b9e4b80fedfa106"
 
 dashdash@^1.12.0:
   version "1.14.1"
