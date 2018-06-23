@@ -23,6 +23,7 @@ module.exports = function(app, db) {
         console.log(result[0]);
 
         let Event = JSON.parse(JSON.stringify(result[0]));
+        let d;
         console.log(Event);
 
         if(Event.StudentLatitude !== null && Event.StudentLongitude !== null && Event.ProfessorLatitude !== null && Event.ProfessorLongitude !== null){
@@ -33,17 +34,11 @@ module.exports = function(app, db) {
                 Latitude: Event.ProfessorLatitude,
                 Longitude: Event.ProfessorLongitude};
 
-            let d = distance(Student,Professor)
-            if(d/1000 <= 5){
-                EventBegin = 1
-            }else{
-                EventBegin = 0
-            }
-            
+            d = distance(Student,Professor)
         }else{
-            EventBegin = 0
+            d = -1
         }
-        res.send({'req': EventBegin});
+        res.send({'req': d});
       }
     );
   })
