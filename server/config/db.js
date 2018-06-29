@@ -3,6 +3,6 @@ module.exports = mysql.createConnection({
   host: "127.0.1.1",
   user: "root",
   port: "3306",
-  password: "",
+  password: "patinete",
   database: "pomus_local"
 });

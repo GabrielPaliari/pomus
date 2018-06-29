@@ -2,6 +2,10 @@
 const matchService = require("../../services/match_service");
 const studentService = require("../../services/student_service");
 
+const p1 = - (1 / 50); //Distancia
+const p2 = - (1 / 75); //Preço
+const p3 = 1 / 2.5;//Avaliação
+
 function distance(Student,Professor){
   const R = 6371; // Mean earth radius 
   // console.log(Student.Latitude);
@@ -10,6 +14,17 @@ function distance(Student,Professor){
   let c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
   let d = R * c;
   return d;
+}
+
+function predicateBy(prop){
+  return function(a,b){
+     if( a[prop] < b[prop]){
+         return 1;
+     }else if( a[prop] > b[prop] ){
+         return -1;
+     }
+     return 0;
+  }
 }
 
 module.exports = function(app, db) { 
@@ -54,17 +69,21 @@ module.exports = function(app, db) {
         Professor.forEach(function(professor)
           {console.log(professor);
             let d = distance(Aluno[0],professor);
+            //let dPrice = Math.sqrt(Math.pow((professor.Price - req.body.MaxPrice),2));
+            let score = (p1 * d) + (p2 * professor.Price) + (p3 * professor.Rating); 
             //Remoção dos professores fora da selecao
-            if(d > req.body.MaxDistance || professor.Price > req.body.MaxPrice){
-              Professor = Professor.filter(function(el){
-                return el.UserId !== professor.UserId
-              })
-            }
+            //if(d > req.body.MaxDistance || professor.Price > req.body.MaxPrice){
+            //  Professor = Professor.filter(function(el){
+            //    return el.UserId !== professor.UserId
+            //  })
+            //}
             professor.Distance = d;
+            professor.Score = score;
             delete professor.Latitude;
             delete professor.Longitude;     
           }
         )
+        Professor.sort(predicateBy("Score"));
         console.log("ProfessoresFiltrados")
         console.log(Professor);
         //foreach (professor in Professor){
